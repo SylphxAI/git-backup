@@ -84,25 +84,6 @@ async function fetchUserRepositories(octokit: Octokit): Promise<Repository[]> {
 }
 
 /**
- * Checks if a directory exists.
- */
-async function directoryExists(dirPath: string): Promise<boolean> {
-    try {
-        // **CRITICAL FIX:** Ensure path is absolute before checking
-        const absolutePath = path.resolve(dirPath);
-        const stats = await fs.stat(absolutePath);
-        return stats.isDirectory();
-    } catch (error: any) {
-        if (error.code === 'ENOENT') {
-            return false; // Doesn't exist
-        }
-        // Log other stat errors
-        console.error(`Error checking directory existence for ${dirPath}:`, error);
-        throw error; 
-    }
-}
-
-/**
  * Checks if a directory is a valid Git repository.
  */
 async function isGitRepository(dirPath: string): Promise<boolean> {
