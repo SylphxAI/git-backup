@@ -17,8 +17,8 @@ Thumbs.db
 Dockerfile
 # Ignore dockerignore file itself
 .dockerignore
-# Ignore Husky directory
-.husky
+# Ignore lefthook git-hooks config
+lefthook.yml
 # Ignore lint/format cache
 .eslintcache
 .prettiercache
