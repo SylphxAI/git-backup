@@ -1,0 +1,9 @@
+# Lefthook configuration — git hooks manager.
+# Migrated from husky (see chore/lefthook-migration). The only intended
+# git-hook behavior in this repo is commit-message validation via commitlint
+# (commitlint.config.cjs + @commitlint/config-conventional).
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx --no -- commitlint --edit {1}
