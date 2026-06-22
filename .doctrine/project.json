@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "repo": "SylphxAI/git-backup",
+    "name": "GitBackup",
+    "lifecycle": "active",
+    "layer": "tooling",
+    "summary": "GitBackup is a local CLI for backing up GitHub repositories that a user-provided Personal Access Token can access.",
+    "goals": [
+      "Own GitHub repository discovery, clone, fetch, and force-update behavior for local backups.",
+      "Keep PAT handling, backup-root selection, Docker execution, and scheduler-friendly operation explicit and documented.",
+      "Provide a small developer-operated backup tool without hidden hosted collection or telemetry."
+    ],
+    "nonGoals": [
+      "Own GitHub account policy, credential issuance, or remote repository state.",
+      "Back up non-GitHub providers without a new public contract decision.",
+      "Delete or mutate files outside the configured backup root."
+    ]
+  },
+  "boundaries": {
+    "owns": [
+      {
+        "name": "github-backup-cli",
+        "description": "CLI behavior for discovering accessible GitHub repositories and cloning or force-updating local backup directories."
+      },
+      {
+        "name": "local-backup-packaging",
+        "description": "Dockerfile, npm workspace scripts, and README guidance for running backups locally or from an OS scheduler."
+      }
+    ],
+    "doesNotOwn": [
+      "GitHub account policy, repository permissions, or Personal Access Token issuance.",
+      "Remote repository contents, branch protection, or organization backup policy.",
+      "Files outside the configured local backup root."
+    ],
+    "publicSurfaces": [
+      {
+        "type": "cli",
+        "name": "gitbackup CLI",
+        "location": "packages/gitbackup-cli/package.json"
+      },
+      {
+        "type": "documentation",
+        "name": "User-facing backup instructions",
+        "location": "README.md"
+      },
+      {
+        "type": "manifest",
+        "name": "Docker packaging",
+        "location": "Dockerfile"
+      }
+    ],
+    "allowedDependencies": [
+      {
+        "repo": "SylphxAI/doctrine",
+        "surface": "enterprise engineering doctrine",
+        "direction": "downward"
+      }
+    ],
+    "forbiddenCouplings": [
+      "Do not commit PATs, .env files, backup contents, private repository URLs, or generated credentials.",
+      "Do not add hidden hosted collection, telemetry, or background sync outside explicit CLI behavior.",
+      "Do not broaden token scopes, repository selection, or destructive local filesystem behavior silently."
+    ]
+  },
+  "documentation": {
+    "adr": {
+      "path": "memory-bank/",
+      "status": "planned"
+    },
+    "specs": {
+      "path": "README.md",
+      "status": "present"
+    },
+    "catalog": {
+      "path": "PROJECT.md",
+      "status": "present"
+    },
+    "runbooks": {
+      "path": "AGENTS.md",
+      "status": "present"
+    },
+    "generatedReferences": {
+      "path": "packages/gitbackup-cli/dist/",
+      "status": "generated"
+    }
+  },
+  "delivery": {
+    "ciModel": "none",
+    "requiredContexts": [],
+    "deployPath": "No GitHub Actions or package publishing workflow is declared at adoption time; run local validation before PR delivery.",
+    "productionProof": "Local build/test/lint evidence, CLI dry-run or fixture-backed proof for behavior changes, and manual npm/Docker release proof only after a release workflow is adopted.",
+    "recoveryClass": "source-revertable"
+  },
+  "adoption": {
+    "status": "baseline",
+    "gaps": [
+      {
+        "id": "ci-producer",
+        "description": "No GitHub Actions workflow currently produces required validation contexts for PRs.",
+        "owner": "SylphxAI/git-backup",
+        "target": "before claiming full doctrine adoption"
+      },
+      {
+        "id": "package-release-control",
+        "description": "CLI package publishing is documented as future/placeholder behavior; adopt a bot-owned release workflow before publishing package versions.",
+        "owner": "SylphxAI/git-backup",
+        "target": "before npm package publication"
+      }
+    ]
+  }
+}
