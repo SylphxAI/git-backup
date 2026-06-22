@@ -4,8 +4,8 @@
 
 This file is the repo-local operating policy for agents working in
 `SylphxAI/git-backup`. Org-wide engineering doctrine is owned by
-`SylphxAI/doctrine`; this file only specializes that SSOT for this repository
-backup CLI boundary.
+`SylphxAI/doctrine`; `PROJECT.md` and `.doctrine/project.json` own this
+repository's local identity, lifecycle, boundary, and delivery facts.
 
 GitBackup is a local CLI for backing up GitHub repositories that a user-selected
 GitHub Personal Access Token can access. The tool may clone repositories and may
@@ -18,15 +18,17 @@ and observable.
 Before proposing or implementing changes, read the smallest relevant set of
 these source-of-truth documents:
 
-1. `README.md` — user-facing behavior, PAT setup, Docker/cron usage, and the
+1. `PROJECT.md` and `.doctrine/project.json` — project goal, lifecycle,
+   boundaries, public surfaces, delivery proof, and adoption gaps.
+2. `README.md` — user-facing behavior, PAT setup, Docker/cron usage, and the
    documented warning that updates may discard local changes in backup dirs.
-2. `memory-bank/projectbrief.md` — product goal, core features, target user, and
+3. `memory-bank/projectbrief.md` — product goal, core features, target user, and
    non-goals.
-3. `memory-bank/systemPatterns.md` — authentication, Octokit, simple-git,
+4. `memory-bank/systemPatterns.md` — authentication, Octokit, simple-git,
    configuration, scheduling, and ESM patterns.
-4. `packages/gitbackup-cli/package.json` and `packages/gitbackup-cli/src/main.ts`
+5. `packages/gitbackup-cli/package.json` and `packages/gitbackup-cli/src/main.ts`
    before changing CLI behavior.
-5. Root `package.json`, `turbo.json`, and validation config before changing
+6. Root `package.json`, `turbo.json`, and validation config before changing
    build/test/lint workflows.
 
 ## Non-Negotiables
